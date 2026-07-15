@@ -1179,21 +1179,7 @@ This repository is developed progressively. Each completed project will include:
 
 ## Author
 
-**Md Moklesur Rahman**
-
-Senior RF/PHY System Specifications Engineer with experience in:
-
-* 5G and LTE radio systems
-* RF architecture and system specification
-* DSP and PHY algorithm analysis
-* Beamforming and beamforming calibration
-* Massive MIMO and OFDM
-* Synchronization and timing
-* MATLAB-based system simulation
-* Embedded RF calibration workflows
-* Python, C, and C++ implementation
-* Wireless-system testing and validation
-
+Md Moklesur Rahman | RF / Wireless / System Specification Engineer | LinkedIn: linkedin.com/in/md-moklesur-rahman-65a63962
 ---
 
 ## License
