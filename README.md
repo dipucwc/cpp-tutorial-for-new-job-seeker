@@ -31,8 +31,8 @@ No project should be considered complete until:
 
 | No. | Project | Main Technical Focus | Current Status |
 |---:|---|---|---|
-| 01 | [FFT and Spectrum Analyzer](./01_fft_and_spectrum_analyzer/) | Direct DFT, radix-2 FFT, bit-reversal, windowing, spectral analysis, PSD, peak detection, and benchmarking | **Ongoing — design and documentation in progress** |
-| 02 | [FIR, IIR, and Fixed-Point Filters](./02_fir_iir_fixed_point_filters/) | FIR/IIR design, biquads, circular buffers, Q15/Q31 arithmetic, quantization, saturation, stability, and benchmarking | **Ongoing — design and documentation in progress** |
+| 01 | [FFT and Spectrum Analyzer](./01_fft_and_spectrum_analyzer/) | Direct DFT, radix-2 FFT, bit-reversal, windowing, spectral analysis, PSD, peak detection, and benchmarking | **Ongoing- design and documentation in progress** |
+| 02 | [FIR, IIR, and Fixed-Point Filters](./02_fir_iir_fixed_point_filters/) | FIR/IIR design, biquads, circular buffers, Q15/Q31 arithmetic, quantization, saturation, stability, and benchmarking | **Ongoing- design and documentation in progress** |
 
 ## Project 01: FFT and Spectrum Analyzer
 
