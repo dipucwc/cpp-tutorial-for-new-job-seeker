@@ -73,83 +73,75 @@ The main DSP areas covered in this repository include:
 ```text
 dsp-algorithm-design-and-implementation/
 │
-├── 01_discrete_time_signal_analysis/
+├── 01_fft_and_spectrum_analyzer/
 │   ├── matlab/
 │   ├── python/
+│   ├── cpp/
+│   ├── tests/
+│   ├── benchmarks/
 │   ├── results/
 │   └── README.md
 │
-├── 02_fft_and_spectral_analysis/
+├── 02_fir_iir_fixed_point_filters/
 │   ├── matlab/
 │   ├── python/
-│   ├── c_cpp/
-│   ├── results/
-│   └── README.md
-│
-├── 03_fir_iir_filter_design/
-│   ├── matlab/
-│   ├── python/
-│   ├── c_cpp/
-│   ├── results/
-│   └── README.md
-│
-├── 04_sampling_and_multirate_processing/
-│   ├── matlab/
-│   ├── python/
-│   ├── results/
-│   └── README.md
-│
-├── 05_adaptive_filtering_and_noise_cancellation/
-│   ├── matlab/
-│   ├── python/
-│   ├── results/
-│   └── README.md
-│
-├── 06_timing_and_frequency_synchronization/
-│   ├── matlab/
-│   ├── python/
-│   ├── results/
-│   └── README.md
-│
-├── 07_channel_estimation_and_equalization/
-│   ├── matlab/
-│   ├── python/
-│   ├── results/
-│   └── README.md
-│
-├── 08_ofdm_signal_processing/
-│   ├── matlab/
-│   ├── python/
-│   ├── results/
-│   └── README.md
-│
-├── 09_mimo_and_digital_beamforming/
-│   ├── matlab/
-│   ├── python/
-│   ├── results/
-│   └── README.md
-│
-├── 10_fixed_point_and_real_time_dsp/
-│   ├── matlab/
 │   ├── c/
+│   ├── cpp/
+│   ├── tests/
+│   ├── benchmarks/
+│   ├── results/
+│   └── README.md
+│
+├── 03_polyphase_sample_rate_converter/
+│   ├── matlab/
+│   ├── python/
+│   ├── cpp/
+│   ├── tests/
+│   ├── benchmarks/
+│   ├── results/
+│   └── README.md
+│
+├── 04_lms_nlms_adaptive_noise_canceller/
+│   ├── matlab/
+│   ├── python/
 │   ├── cpp/
 │   ├── tests/
 │   ├── results/
 │   └── README.md
 │
+├── 05_timing_and_frequency_synchronization/
+│   ├── matlab/
+│   ├── python/
+│   ├── cpp/
+│   ├── tests/
+│   ├── results/
+│   └── README.md
+│
+├── 06_streaming_iq_dsp_pipeline/
+│   ├── matlab_reference/
+│   ├── python_reference/
+│   ├── cpp/
+│   ├── fixed_point/
+│   ├── tests/
+│   ├── benchmarks/
+│   ├── results/
+│   └── README.md
+│
 ├── common/
 │   ├── signal_generators/
-│   ├── channel_models/
-│   ├── utility_functions/
 │   ├── reference_vectors/
+│   ├── test_utilities/
+│   ├── complex_math/
+│   ├── file_io/
 │   └── plotting_tools/
 │
 ├── docs/
 │   ├── mathematical_derivations/
 │   ├── algorithm_flowcharts/
 │   ├── verification_reports/
-│   └── technical_notes/
+│   └── coding_and_fixed_point_guidelines/
 │
+├── CMakeLists.txt
 ├── LICENSE
 └── README.md
 ```
