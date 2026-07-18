@@ -1,1181 +1,600 @@
 # DSP Algorithm Design and Implementation
 
-## Overview
+## Repository Overview
 
-This repository contains practical projects on **Digital Signal Processing algorithm design, simulation, implementation, and verification**.
+This repository contains compact, verification-driven Digital Signal Processing projects focused on algorithm design, reference modeling, C/C++ implementation, numerical validation, and performance benchmarking.
 
-The repository focuses on DSP techniques used in:
+The repository currently contains two active projects:
 
-* Wireless communication systems
-* 4G LTE and 5G NR physical-layer processing
-* OFDM and MIMO systems
-* Massive MIMO and digital beamforming
-* RF signal analysis
-* Synchronization and frequency-offset correction
-* Channel estimation and equalization
-* Digital filtering
-* Spectral analysis
-* Noise reduction
-* Embedded and real-time signal processing
+1. FFT and Spectrum Analyzer
+2. FIR, IIR, and Fixed-Point Digital Filters
 
-The projects are implemented using **MATLAB, Python, C, and C++**. MATLAB is mainly used for mathematical modeling and reference simulation, Python is used for independent implementation and result verification, and C/C++ are used for efficient and embedded-oriented DSP implementation.
+MATLAB and Python are used as reference models. C and C++ are used for efficient, embedded-oriented, and real-time-oriented implementations.
 
----
+## Repository Status
 
-## Repository Purpose
+> **Ongoing portfolio — currently under active development**
 
-The purpose of this repository is to demonstrate the complete engineering process of developing DSP algorithms:
+The repository structure and project documentation have been created. Source code, deterministic tests, reference vectors, benchmark results, plots, and technical reports will be added progressively.
 
-1. Define the signal-processing problem.
-2. Develop the mathematical model.
-3. Design the DSP algorithm.
-4. Implement a reference model in MATLAB.
-5. Develop an independent Python implementation.
-6. Implement computationally important parts in C or C++.
-7. Generate deterministic test signals.
-8. Verify numerical accuracy.
-9. Evaluate performance using engineering metrics.
-10. Document the algorithm, assumptions, results, and limitations.
+No project should be considered complete until:
 
-The repository connects fundamental DSP concepts with practical wireless and RF/PHY applications.
+- the mathematical model is documented;
+- the MATLAB or Python reference model is implemented;
+- the C or C++ implementation is available;
+- deterministic tests pass;
+- numerical differences remain within defined tolerances;
+- runtime and memory results are reported;
+- limitations are documented.
 
----
+## Current Projects
 
-## Technical Focus
+| No. | Project | Main Technical Focus | Current Status |
+|---:|---|---|---|
+| 01 | [FFT and Spectrum Analyzer](./01_fft_and_spectrum_analyzer/) | Direct DFT, radix-2 FFT, bit-reversal, windowing, spectral analysis, PSD, peak detection, and benchmarking | **Ongoing — design and documentation in progress** |
+| 02 | [FIR, IIR, and Fixed-Point Filters](./02_fir_iir_fixed_point_filters/) | FIR/IIR design, biquads, circular buffers, Q15/Q31 arithmetic, quantization, saturation, stability, and benchmarking | **Ongoing — design and documentation in progress** |
 
-The main DSP areas covered in this repository include:
+## Project 01: FFT and Spectrum Analyzer
 
-* Discrete-time signal generation and analysis
-* Sampling and aliasing
-* Convolution and correlation
-* FFT and frequency-domain analysis
-* Windowing and spectral leakage
-* Power spectral density estimation
-* FIR and IIR digital filter design
-* Multirate signal processing
-* Adaptive filtering
-* Noise reduction and interference suppression
-* Timing synchronization
-* Carrier-frequency-offset estimation and correction
-* Channel estimation
-* ZF and MMSE equalization
-* OFDM signal processing
-* MIMO signal processing
-* Digital beamforming
-* Fixed-point DSP implementation
-* Real-time C/C++ signal-processing modules
-* MATLAB, Python, and C/C++ cross-verification
+### Objective
 
----
+Design, implement, and verify a radix-2 FFT and windowed spectrum analyzer using:
+
+- MATLAB as the primary mathematical reference;
+- Python as an independent numerical reference;
+- C++ as the main implementation language.
+
+### Planned Technical Scope
+
+- direct DFT reference implementation;
+- radix-2 decimation-in-time FFT;
+- iterative butterfly processing;
+- bit-reversal permutation;
+- forward FFT;
+- inverse FFT;
+- rectangular, Hann, Hamming, and Blackman windows;
+- single-sided and double-sided spectra;
+- magnitude and phase spectra;
+- power spectrum;
+- power spectral density;
+- frequency-axis generation;
+- peak-bin and peak-frequency detection;
+- Parseval energy verification;
+- runtime and memory benchmarking.
+
+### Core DFT Model
+
+For an input sequence `x[n]` of length `N`:
+
+```text
+X[k] = sum from n = 0 to N - 1 of:
+
+       x[n] * exp(-j * 2 * pi * k * n / N)
+```
+
+The inverse transform is:
+
+```text
+x[n] = (1/N) * sum from k = 0 to N - 1 of:
+
+       X[k] * exp(j * 2 * pi * k * n / N)
+```
+
+### Radix-2 Butterfly
+
+The butterfly outputs are:
+
+```text
+Y0 = A + W_N^k * B
+```
+
+```text
+Y1 = A - W_N^k * B
+```
+
+with:
+
+```text
+W_N^k = exp(-j * 2 * pi * k / N)
+```
+
+### Frequency Resolution
+
+For sampling frequency `Fs` and FFT length `N`:
+
+```text
+Delta_f = Fs / N
+```
+
+### Project 01 Status
+
+- [x] Project folder created
+- [x] Project scope defined
+- [x] Initial README created
+- [x] GitHub-compatible equation formatting defined
+- [ ] MATLAB direct DFT implemented
+- [ ] MATLAB radix-2 FFT implemented
+- [ ] Python direct DFT implemented
+- [ ] Python radix-2 FFT implemented
+- [ ] C++ radix-2 FFT implemented
+- [ ] Bit-reversal verification completed
+- [ ] FFT/IFFT round-trip test completed
+- [ ] Window functions implemented
+- [ ] Spectrum analyzer implemented
+- [ ] Peak detector implemented
+- [ ] MATLAB comparison completed
+- [ ] NumPy comparison completed
+- [ ] Parseval test completed
+- [ ] Runtime benchmarks completed
+- [ ] Memory analysis completed
+- [ ] Final figures and report completed
+
+## Project 02: FIR, IIR, and Fixed-Point Digital Filters
+
+### Objective
+
+Design, implement, and verify floating-point and fixed-point FIR and IIR filters using:
+
+- MATLAB for filter design and reference analysis;
+- Python for independent verification;
+- C for fixed-point and embedded-oriented implementation;
+- C++ for reusable floating-point and fixed-point filter modules.
+
+### Planned Technical Scope
+
+- FIR low-pass and high-pass filters;
+- direct-form FIR;
+- circular-buffer FIR;
+- IIR biquad filters;
+- Direct Form I;
+- Direct Form II Transposed;
+- cascaded second-order sections;
+- Q15 arithmetic;
+- optional Q31 arithmetic;
+- coefficient quantization;
+- accumulator-width analysis;
+- rounding and truncation;
+- saturation arithmetic;
+- overflow monitoring;
+- IIR pole-stability verification;
+- limit-cycle analysis;
+- runtime and memory benchmarking.
+
+### FIR Model
+
+For an FIR filter of order `M`:
+
+```text
+y[n] = sum from k = 0 to M of:
+
+       b[k] * x[n - k]
+```
+
+where:
+
+- `x[n]` is the input sample;
+- `y[n]` is the output sample;
+- `b[k]` is FIR coefficient `k`;
+- `M + 1` is the number of taps.
+
+### IIR Model
+
+A general IIR filter is:
+
+```text
+y[n] =
+sum from k = 0 to M of b[k] * x[n - k]
+-
+sum from r = 1 to N of a[r] * y[n - r]
+```
+
+### Biquad Model
+
+A second-order IIR section is:
+
+```text
+y[n] =
+b0 * x[n]
++ b1 * x[n - 1]
++ b2 * x[n - 2]
+- a1 * y[n - 1]
+- a2 * y[n - 2]
+```
+
+### Q15 Representation
+
+A Q15 integer represents a real value as:
+
+```text
+real_value = stored_integer / 2^15
+```
+
+The approximate range is:
+
+```text
+-1.0 <= value <= 1.0 - 2^(-15)
+```
+
+The quantization step is:
+
+```text
+Delta = 2^(-15)
+```
+
+### Fixed-Point Conversion
+
+Floating-point to Q15 conversion:
+
+```text
+q15_integer = round(real_value * 2^15)
+```
+
+The integer is then saturated to:
+
+```text
+-32768 to 32767
+```
+
+### Fixed-Point Multiplication
+
+```text
+Q15 * Q15 -> Q30 intermediate result
+```
+
+The result is returned to Q15 using a right shift:
+
+```text
+output_q15 = product_q30 >> 15
+```
+
+Rounding and saturation will be handled explicitly.
+
+### IIR Stability Condition
+
+A stable causal IIR filter requires:
+
+```text
+Magnitude of every pole < 1
+```
+
+The floating-point and quantized pole locations will both be checked.
+
+### Project 02 Status
+
+- [x] Project folder created
+- [x] Project scope defined
+- [x] Initial README created
+- [x] GitHub-compatible equation formatting defined
+- [ ] MATLAB FIR design implemented
+- [ ] MATLAB IIR design implemented
+- [ ] Python FIR model implemented
+- [ ] Python IIR model implemented
+- [ ] C Q15 FIR implemented
+- [ ] C Q15 biquad implemented
+- [ ] C++ floating-point FIR implemented
+- [ ] C++ circular-buffer FIR implemented
+- [ ] C++ biquad implementation completed
+- [ ] Coefficient quantization implemented
+- [ ] Saturation arithmetic implemented
+- [ ] Overflow monitoring implemented
+- [ ] FIR impulse-response test completed
+- [ ] FIR frequency-response test completed
+- [ ] IIR impulse-response test completed
+- [ ] Quantized-pole stability test completed
+- [ ] Fixed-point accuracy test completed
+- [ ] Limit-cycle test completed
+- [ ] MATLAB cross-verification completed
+- [ ] Python cross-verification completed
+- [ ] Runtime benchmarks completed
+- [ ] Memory analysis completed
+- [ ] Final figures and report completed
+
+## Common Engineering Methodology
+
+Each project follows the same development workflow.
+
+1. Define the engineering problem.
+2. Write the mathematical model.
+3. Define dimensions, units, normalization, and numerical conventions.
+4. Implement a MATLAB reference model.
+5. Implement an independent Python model.
+6. Implement the main C or C++ version.
+7. Generate deterministic input vectors.
+8. Compare stage-by-stage outputs.
+9. Add unit and regression tests.
+10. Measure numerical error.
+11. Measure runtime and memory use.
+12. Generate result figures and benchmark tables.
+13. Document limitations and future improvements.
+
+## Reference and Implementation Roles
+
+| Language | Main Role |
+|---|---|
+| MATLAB | Mathematical modeling, reference calculations, filter design, signal generation, and verification |
+| Python | Independent reference implementation, automated analysis, plotting, and test support |
+| C | Fixed-point and embedded-oriented DSP implementation |
+| C++ | Main reusable DSP implementation, benchmarking, and software architecture |
+
+## Verification Strategy
+
+The projects will not rely only on visually reasonable plots.
+
+Verification will include:
+
+- deterministic test vectors;
+- fixed random seeds where random data are used;
+- analytical test cases;
+- sample-by-sample reference comparison;
+- maximum absolute error;
+- RMS error;
+- relative error;
+- frequency-response comparison;
+- Parseval energy checking;
+- FFT/IFFT round-trip checking;
+- FIR impulse-response checking;
+- IIR stability checking;
+- saturation and overflow monitoring;
+- fixed-point output-SNR analysis;
+- runtime and memory benchmarking.
+
+## Common Verification Metrics
+
+### Maximum Absolute Error
+
+```text
+Maximum absolute error =
+maximum of abs(output_implementation - output_reference)
+```
+
+### RMS Error
+
+```text
+RMS error =
+sqrt(
+    sum((output_implementation - output_reference)^2)
+    /
+    number of samples
+)
+```
+
+### Relative Error
+
+```text
+Relative error =
+norm(output_implementation - output_reference)
+/
+norm(output_reference)
+```
+
+### Mean-Square Error
+
+```text
+MSE =
+sum(abs(reference[n] - estimate[n])^2)
+/
+number of samples
+```
+
+### Output SNR
+
+```text
+error[n] = fixed_output[n] - reference_output[n]
+```
+
+```text
+Output SNR in dB =
+10 * log10(
+    sum(reference_output[n]^2)
+    /
+    sum(error[n]^2)
+)
+```
 
 ## Repository Structure
 
 ```text
-dsp-algorithm-design-and-implementation/
-│
+DSP-Algorithm-Design-and-Implementation/
+├── README.md
 ├── 01_fft_and_spectrum_analyzer/
+│   ├── README.md
 │   ├── matlab/
 │   ├── python/
 │   ├── cpp/
 │   ├── tests/
 │   ├── benchmarks/
-│   ├── results/
-│   └── README.md
-│
-├── 02_fir_iir_fixed_point_filters/
-│   ├── matlab/
-│   ├── python/
-│   ├── c/
-│   ├── cpp/
-│   ├── tests/
-│   ├── benchmarks/
-│   ├── results/
-│   └── README.md
-│
-├── 03_polyphase_sample_rate_converter/
-│   ├── matlab/
-│   ├── python/
-│   ├── cpp/
-│   ├── tests/
-│   ├── benchmarks/
-│   ├── results/
-│   └── README.md
-│
-├── 04_lms_nlms_adaptive_noise_canceller/
-│   ├── matlab/
-│   ├── python/
-│   ├── cpp/
-│   ├── tests/
-│   ├── results/
-│   └── README.md
-│
-├── 05_timing_and_frequency_synchronization/
-│   ├── matlab/
-│   ├── python/
-│   ├── cpp/
-│   ├── tests/
-│   ├── results/
-│   └── README.md
-│
-├── 06_streaming_iq_dsp_pipeline/
-│   ├── matlab_reference/
-│   ├── python_reference/
-│   ├── cpp/
-│   ├── fixed_point/
-│   ├── tests/
-│   ├── benchmarks/
-│   ├── results/
-│   └── README.md
-│
-├── common/
-│   ├── signal_generators/
-│   ├── reference_vectors/
-│   ├── test_utilities/
-│   ├── complex_math/
-│   ├── file_io/
-│   └── plotting_tools/
-│
-├── docs/
-│   ├── mathematical_derivations/
-│   ├── algorithm_flowcharts/
-│   ├── verification_reports/
-│   └── coding_and_fixed_point_guidelines/
-│
-├── CMakeLists.txt
-├── LICENSE
-└── README.md
+│   └── results/
+└── 02_fir_iir_fixed_point_filters/
+    ├── README.md
+    ├── matlab/
+    ├── python/
+    ├── c/
+    ├── cpp/
+    ├── tests/
+    ├── benchmarks/
+    └── results/
 ```
 
----
-
-## Project Areas
-
-### 1. Discrete-Time Signal Analysis
-
-This project covers the generation and analysis of discrete-time signals used in DSP and wireless-system simulations.
-
-The project includes:
-
-* Sinusoidal signal generation
-* Complex exponential signals
-* Impulse and step signals
-* Multi-tone signals
-* Signal shifting and scaling
-* Signal energy and average power
-* Even and odd signal decomposition
-* Signal addition and multiplication
-* Time-domain visualization
-* Complex baseband I/Q signal representation
-
-A discrete-time sinusoidal signal is represented as:
-
-[
-x[n]
-====
-
-A\cos\left(
-2\pi f_0\frac{n}{f_s}+\phi
-\right)
-]
-
-where:
-
-* (A) is the signal amplitude.
-* (f_0) is the signal frequency.
-* (f_s) is the sampling frequency.
-* (n) is the sample index.
-* (\phi) is the initial phase.
-
-For complex baseband processing, the signal can be represented as:
-
-[
-x[n]
-====
-
-A e^{j\left(2\pi f_0n/f_s+\phi\right)}
-]
-
-Complex baseband signals are important in RF, OFDM, MIMO, beamforming, and modulation-system simulations.
-
----
-
-### 2. FFT and Spectral Analysis
-
-This project focuses on frequency-domain signal analysis using the Discrete Fourier Transform and Fast Fourier Transform.
-
-The (N)-point DFT is defined as:
-
-[
-X[k]
-====
-
-\sum_{n=0}^{N-1}
-x[n]e^{-j2\pi kn/N}
-]
-
-where:
-
-* (x[n]) is the time-domain signal.
-* (X[k]) is the frequency-domain representation.
-* (N) is the transform length.
-* (k) is the frequency-bin index.
-
-The project covers:
-
-* Direct DFT implementation
-* Radix-based FFT concepts
-* Magnitude and phase spectra
-* Frequency-bin calculation
-* Frequency resolution
-* FFT shifting
-* Window functions
-* Spectral leakage
-* Zero padding
-* Power spectral density
-* Single-sided and double-sided spectra
-* Complex I/Q spectrum analysis
-
-The frequency resolution is:
-
-[
-\Delta f = \frac{f_s}{N}
-]
-
-where (f_s) is the sampling frequency and (N) is the FFT length.
-
-FFT processing is also used in this repository for:
-
-* OFDM modulation and demodulation
-* Channel estimation
-* Frequency-offset analysis
-* Interference analysis
-* RF spectrum evaluation
-* Filter-response verification
-
----
-
-### 3. FIR and IIR Filter Design
-
-This project covers digital filter design, implementation, and verification.
-
-An FIR filter is represented by:
-
-[
-y[n]
-====
-
-\sum_{k=0}^{M}
-b_kx[n-k]
-]
-
-where:
-
-* (x[n]) is the input signal.
-* (y[n]) is the filtered signal.
-* (b_k) represents the FIR filter coefficients.
-* (M) is the filter order.
-
-An IIR filter can be represented as:
-
-[
-y[n]
-====
-
-\sum_{k=0}^{M}
-b_kx[n-k]
----------
-
-\sum_{k=1}^{N}
-a_ky[n-k]
-]
-
-where:
-
-* (b_k) represents feedforward coefficients.
-* (a_k) represents feedback coefficients.
-* (M) and (N) define the filter orders.
-
-The project includes:
-
-* Low-pass filters
-* High-pass filters
-* Band-pass filters
-* Band-stop filters
-* Window-based FIR design
-* Butterworth IIR filters
-* Chebyshev filters
-* Pole-zero analysis
-* Magnitude response
-* Phase response
-* Group delay
-* Filter stability
-* Direct Form I and Direct Form II
-* Second-order-section implementation
-* Floating-point and fixed-point comparison
-
-Applications include:
-
-* Noise reduction
-* Channel filtering
-* Interference suppression
-* Signal conditioning
-* Anti-aliasing
-* Reconstruction filtering
-* Communication-receiver preprocessing
-
----
-
-### 4. Sampling and Multirate Signal Processing
-
-This project studies the effect of sampling frequency and sampling-rate conversion.
-
-The sampling theorem requires:
-
-[
-f_s > 2f_{\max}
-]
-
-where:
-
-* (f_s) is the sampling frequency.
-* (f_{\max}) is the highest frequency component of the signal.
-
-The project covers:
-
-* Nyquist sampling condition
-* Undersampling and aliasing
-* Oversampling
-* Downsampling
-* Upsampling
-* Decimation
-* Interpolation
-* Anti-aliasing filtering
-* Anti-imaging filtering
-* Rational sampling-rate conversion
-* Polyphase filter structures
-
-Downsampling by a factor (M) is represented as:
-
-[
-y[n] = x[nM]
-]
-
-Upsampling by a factor (L) is represented as:
-
-[
-y[n]
-====
-
-\begin{cases}
-x[n/L], & n = 0,\pm L,\pm 2L,\ldots \
-0, & \text{otherwise}
-\end{cases}
-]
-
-Multirate DSP is important in communication receivers, sample-rate adaptation, digital front ends, audio systems, and RF signal-processing chains.
-
----
-
-### 5. Adaptive Filtering and Noise Cancellation
-
-This project focuses on adaptive filters that update their coefficients according to the input and error signals.
-
-For the LMS algorithm, the filter output is:
-
-[
-y[n]
-====
-
-\mathbf{w}^{H}[n]\mathbf{x}[n]
-]
-
-The estimation error is:
-
-[
-e[n]
-====
-
-d[n]-y[n]
-]
-
-The coefficient-update equation is:
-
-[
-\mathbf{w}[n+1]
-===============
-
-\mathbf{w}[n]
-+
-\mu e^{*}[n]\mathbf{x}[n]
-]
-
-where:
-
-* (\mathbf{w}[n]) is the adaptive coefficient vector.
-* (\mathbf{x}[n]) is the input vector.
-* (d[n]) is the desired signal.
-* (e[n]) is the estimation error.
-* (\mu) is the adaptation step size.
-* ((\cdot)^H) represents the Hermitian transpose.
-
-The project covers:
-
-* LMS adaptive filtering
-* Normalized LMS
-* Adaptive noise cancellation
-* System identification
-* Interference suppression
-* Convergence analysis
-* Step-size selection
-* Mean-square error
-* Steady-state error
-* Coefficient tracking
-
-These concepts are related to adaptive beamforming, channel tracking, echo cancellation, and interference mitigation.
-
----
-
-### 6. Timing and Frequency Synchronization
-
-This project studies synchronization problems that occur in practical digital communication systems.
-
-The received signal with carrier-frequency offset can be represented as:
-
-[
-r[n]
-====
-
-s[n]e^{j2\pi \Delta f n/f_s}
-+
-w[n]
-]
-
-where:
-
-* (s[n]) is the transmitted signal.
-* (\Delta f) is the carrier-frequency offset.
-* (f_s) is the sampling frequency.
-* (w[n]) is additive noise.
-
-The project covers:
-
-* Timing-offset generation
-* Cross-correlation-based timing estimation
-* Autocorrelation-based synchronization
-* Carrier-frequency-offset estimation
-* Frequency-offset correction
-* Phase-offset correction
-* Synchronization-error analysis
-* OFDM preamble processing
-* Cyclic-prefix-based estimation
-* Residual-frequency-offset analysis
-
-Performance is evaluated using:
-
-* Timing estimation error
-* Frequency estimation error
-* Residual phase error
-* EVM before correction
-* EVM after correction
-* BER before and after synchronization
-
----
-
-### 7. Channel Estimation and Equalization
-
-This project covers estimation and compensation of the communication channel.
-
-The received signal can be represented as:
-
-[
-\mathbf{y}
-==========
-
-\mathbf{H}\mathbf{x}
-+
-\mathbf{n}
-]
-
-where:
-
-* (\mathbf{x}) is the transmitted signal.
-* (\mathbf{H}) is the channel response.
-* (\mathbf{y}) is the received signal.
-* (\mathbf{n}) is additive noise.
-
-For pilot-based least-squares channel estimation:
-
-[
-\hat{H}_{\mathrm{LS}}[k]
-========================
-
-\frac{Y[k]}{X[k]}
-]
-
-where (X[k]) is the known pilot symbol and (Y[k]) is the received pilot.
-
-The ZF equalizer is:
-
-[
-\mathbf{W}_{\mathrm{ZF}}
-========================
-
-\left(
-\mathbf{H}^{H}\mathbf{H}
-\right)^{-1}
-\mathbf{H}^{H}
-]
-
-The MMSE equalizer is:
-
-[
-\mathbf{W}_{\mathrm{MMSE}}
-==========================
-
-\left(
-\mathbf{H}^{H}\mathbf{H}
-+
-\sigma_n^2\mathbf{I}
-\right)^{-1}
-\mathbf{H}^{H}
-]
-
-where:
-
-* (\sigma_n^2) is the noise variance.
-* (\mathbf{I}) is the identity matrix.
-
-The project covers:
-
-* LS channel estimation
-* MMSE channel estimation
-* Pilot-based estimation
-* Frequency-domain interpolation
-* ZF equalization
-* MMSE equalization
-* SISO and MIMO equalization
-* Channel-estimation error
-* Noise-enhancement analysis
-* BER, EVM, and MSE evaluation
-
----
-
-### 8. OFDM Signal Processing
-
-This project focuses on the DSP operations used in an OFDM transmitter and receiver.
-
-The time-domain OFDM symbol is generated using:
-
-[
-x[n]
-====
-
-\frac{1}{N}
-\sum_{k=0}^{N-1}
-X[k]e^{j2\pi kn/N}
-]
-
-where:
-
-* (X[k]) is the frequency-domain subcarrier symbol.
-* (x[n]) is the time-domain OFDM signal.
-* (N) is the number of subcarriers.
-
-The project covers:
-
-* QPSK and QAM symbol generation
-* Resource-grid construction
-* Subcarrier allocation
-* IFFT-based OFDM modulation
-* Cyclic-prefix insertion
-* Multipath-channel processing
-* AWGN addition
-* Timing synchronization
-* Carrier-frequency-offset correction
-* FFT-based demodulation
-* Channel estimation
-* Equalization
-* Symbol detection
-* BER and EVM calculation
-* PAPR evaluation
-
-The peak-to-average power ratio is:
-
-[
-\mathrm{PAPR}
-=============
-
-\frac{
-\max_n |x[n]|^2
-}{
-E{|x[n]|^2}
-}
-]
-
-OFDM processing is directly relevant to LTE, 5G NR, Wi-Fi, and other broadband communication systems.
-
----
-
-### 9. MIMO and Digital Beamforming
-
-This project studies spatial signal processing for multi-antenna systems.
-
-For a narrowband MIMO system:
-
-[
-\mathbf{y}
-==========
-
-\mathbf{H}\mathbf{W}\mathbf{s}
-+
-\mathbf{n}
-]
-
-where:
-
-* (\mathbf{s}) is the transmitted symbol vector.
-* (\mathbf{W}) is the precoding or beamforming matrix.
-* (\mathbf{H}) is the MIMO channel matrix.
-* (\mathbf{y}) is the received signal vector.
-* (\mathbf{n}) is additive noise.
-
-The project covers:
-
-* MIMO channel generation
-* Singular-value decomposition
-* ZF precoding
-* MMSE precoding
-* Maximum-ratio transmission
-* Maximum-ratio combining
-* Array steering vectors
-* Digital beamforming
-* Beam sweeping
-* Beam selection
-* Beam gain analysis
-* Spatial multiplexing
-* Multi-user interference analysis
-* SINR and spectral-efficiency evaluation
-
-For a uniform linear array, the steering vector can be written as:
-
-[
-\mathbf{a}(\theta)
-==================
-
-\begin{bmatrix}
-1 &
-e^{-j2\pi d\sin(\theta)/\lambda} &
-\cdots &
-e^{-j2\pi(M-1)d\sin(\theta)/\lambda}
-\end{bmatrix}^{T}
-]
-
-where:
-
-* (M) is the number of antenna elements.
-* (d) is the antenna-element spacing.
-* (\lambda) is the wavelength.
-* (\theta) is the signal direction.
-
-This project connects DSP implementation with beamforming, beam management, massive MIMO, and RF/PHY system analysis.
-
----
-
-### 10. Fixed-Point and Real-Time DSP
-
-This project investigates efficient implementation of DSP algorithms for embedded and real-time systems.
-
-The fixed-point representation introduces quantization error:
-
-[
-e_q[n]
-======
-
-x[n]-x_q[n]
-]
-
-where:
-
-* (x[n]) is the original value.
-* (x_q[n]) is the quantized value.
-* (e_q[n]) is the quantization error.
-
-The project covers:
-
-* Floating-point reference implementation
-* Fixed-point number formats
-* Q-format representation
-* Coefficient quantization
-* Signal scaling
-* Saturation
-* Overflow protection
-* Round-off error
-* Circular buffers
-* In-place processing
-* Memory-efficient implementation
-* C and C++ DSP modules
-* Execution-time measurement
-* Unit testing
-* Numerical cross-verification
-
-Example C/C++ modules may include:
-
-* FIR filtering
-* IIR filtering
-* FFT processing
-* Complex-number operations
-* Correlation
-* Power calculation
-* EVM calculation
-* Moving-average processing
-* Digital downconversion
-* Complex baseband processing
-
----
-
-## Wireless DSP Processing Chain
-
-A typical wireless receiver DSP chain represented in this repository is:
-
-```text
-Received I/Q Samples
-        ↓
-DC Offset Removal
-        ↓
-Digital Filtering
-        ↓
-Automatic Gain Normalization
-        ↓
-Timing Synchronization
-        ↓
-Carrier-Frequency-Offset Estimation
-        ↓
-Frequency and Phase Correction
-        ↓
-Cyclic-Prefix Removal
-        ↓
-FFT Processing
-        ↓
-Channel Estimation
-        ↓
-ZF or MMSE Equalization
-        ↓
-MIMO Detection or Combining
-        ↓
-Symbol Demapping
-        ↓
-BER, EVM, SINR, and Throughput Evaluation
-```
-
-A typical transmitter DSP chain is:
-
-```text
-Input Bits
-        ↓
-Symbol Mapping
-        ↓
-Layer Mapping
-        ↓
-Precoding or Beamforming
-        ↓
-Resource-Grid Mapping
-        ↓
-IFFT Processing
-        ↓
-Cyclic-Prefix Insertion
-        ↓
-Digital Filtering
-        ↓
-Complex Baseband I/Q Signal
-```
-
----
-
-## Engineering Metrics
-
-The algorithms are evaluated using relevant DSP and wireless-system metrics.
-
-### Mean-Square Error
-
-[
-\mathrm{MSE}
-============
-
-\frac{1}{N}
-\sum_{n=0}^{N-1}
-|x[n]-\hat{x}[n]|^2
-]
-
-### Signal-to-Noise Ratio
-
-[
-\mathrm{SNR}
-============
-
-10\log_{10}
-\left(
-\frac{P_{\mathrm{signal}}}
-{P_{\mathrm{noise}}}
-\right)
-]
-
-### Error Vector Magnitude
-
-[
-\mathrm{EVM}_{\mathrm{RMS}}
-===========================
-
-\sqrt{
-\frac{
-\sum_{k=0}^{N-1}
-|S_{\mathrm{rx}}[k]-S_{\mathrm{ref}}[k]|^2
-}{
-\sum_{k=0}^{N-1}
-|S_{\mathrm{ref}}[k]|^2
-}
-}
-]
-
-The percentage EVM is:
-
-[
-\mathrm{EVM}_{%}
-================
-
-100 \times \mathrm{EVM}_{\mathrm{RMS}}
-]
-
-### Bit-Error Rate
-
-[
-\mathrm{BER}
-============
-
-\frac{
-N_{\mathrm{error}}
-}{
-N_{\mathrm{total}}
-}
-]
-
-### Signal-to-Interference-plus-Noise Ratio
-
-[
-\mathrm{SINR}
-=============
-
-\frac{
-P_{\mathrm{signal}}
-}{
-P_{\mathrm{interference}}+P_{\mathrm{noise}}
-}
-]
-
-### Spectral Efficiency
-
-[
-\eta
-====
-
-\log_2(1+\mathrm{SINR})
-]
-
-The calculated spectral efficiency is expressed in bit/s/Hz.
-
----
+Only the two current project folders are shown because they are the projects presently created in this repository.
+
+## Folder Purpose
+
+| Folder | Purpose |
+|---|---|
+| `matlab/` | MATLAB reference models |
+| `python/` | Independent Python verification models |
+| `c/` | C fixed-point and embedded-oriented implementation |
+| `cpp/` | Main C++ implementation |
+| `tests/` | Unit, regression, and deterministic-vector tests |
+| `benchmarks/` | Runtime, memory, and complexity measurements |
+| `results/` | Figures, CSV files, logs, tables, and reports |
 
 ## Software Tools
 
 ### MATLAB
 
-MATLAB is used for:
+Planned use includes:
 
-* DSP algorithm modeling
-* Mathematical verification
-* Signal generation
-* Filter design
-* FFT analysis
-* OFDM simulation
-* Channel estimation
-* MIMO processing
-* Beamforming simulation
-* BER, EVM, and SINR analysis
-* Reference-vector generation
-* Simulink-based system modeling
+- signal generation;
+- direct DFT and FFT reference;
+- filter design;
+- frequency-response analysis;
+- impulse and step responses;
+- pole-zero analysis;
+- reference-vector generation;
+- result plotting.
 
 ### Python
 
-Python is used for:
-
-* Independent DSP implementation
-* Numerical cross-verification
-* Automated testing
-* Signal and data processing
-* Result plotting
-* Statistical analysis
-* Reproducible simulation workflows
-
-Main Python libraries may include:
+Expected packages include:
 
 ```text
 NumPy
 SciPy
 Matplotlib
-Pandas
-SymPy
-PyTest
+pandas
+pytest
 ```
 
 ### C and C++
 
-C and C++ are used for:
-
-* Computationally efficient DSP implementation
-* Embedded-oriented development
-* Real-time processing concepts
-* Memory-controlled implementation
-* Circular-buffer processing
-* Fixed-point arithmetic
-* Modular DSP libraries
-* Unit testing
-* Execution-time evaluation
-
-### Simulink
-
-Simulink may be used for:
-
-* Block-level DSP system design
-* Signal-flow visualization
-* Transmitter and receiver test benches
-* Algorithm integration
-* Input-output verification
-* System-level simulation
-
----
-
-## Verification Methodology
-
-Each project uses a structured verification approach.
-
-### Mathematical Verification
-
-The software implementation is checked against the corresponding mathematical equation or analytically calculated result.
-
-### Deterministic Test Signals
-
-Fixed input signals, random seeds, channel conditions, and noise realizations are used to make the results reproducible.
-
-### Cross-Language Verification
-
-MATLAB, Python, C, and C++ implementations use identical:
-
-* Input samples
-* Filter coefficients
-* FFT sizes
-* Sampling frequencies
-* Channel matrices
-* Noise realizations
-* Synchronization offsets
-* Reference symbols
-
-The outputs are compared using:
-
-* Maximum absolute error
-* Mean absolute error
-* Mean-square error
-* Relative error
-* EVM
-* BER
-
-### Reference-Vector Verification
-
-MATLAB-generated reference vectors may be exported to CSV or binary files and used to verify Python and C/C++ outputs.
-
-### Performance Verification
-
-The implementations are evaluated using:
-
-* Numerical accuracy
-* Execution time
-* Memory usage
-* Computational complexity
-* Convergence speed
-* Noise sensitivity
-* Fixed-point degradation
-
----
-
-## Typical Project Contents
-
-Each project folder may contain:
+Planned tools include:
 
 ```text
-README.md
-mathematical_model.md
-algorithm_description.md
-main.m
-main.py
-main.c
-main.cpp
-config.m
-config.py
-include/
-src/
-tests/
-reference_vectors/
-results/
-figures/
-technical_report.pdf
+C11 or later
+C++17 or later
+CMake
+GCC
+Clang
+Microsoft Visual C++
+CTest or another unit-test framework
 ```
 
-A project-level README normally describes:
+## Coding Principles
 
-* Project objective
-* System model
-* Mathematical equations
-* Algorithm steps
-* Implementation structure
-* Input parameters
-* Output metrics
-* Verification method
-* Simulation results
-* Conclusions
+The implementations will follow these principles:
 
----
+- use clear input and output contracts;
+- validate array and buffer sizes;
+- avoid unnecessary allocation inside processing loops;
+- separate reference code from optimized code;
+- use deterministic tests;
+- define numerical tolerances before accepting results;
+- use fixed-width integer types for fixed-point processing;
+- apply saturation intentionally;
+- record overflow and saturation events;
+- preserve exact source filenames after build and import dependencies are created;
+- measure performance before optimization.
 
-## Example Applications
+## Benchmarking Plan
 
-The DSP algorithms in this repository can be applied to:
+Each project will report relevant measurements such as:
 
-* 5G NR physical-layer simulation
-* LTE receiver processing
-* Massive MIMO systems
-* OFDM transmitters and receivers
-* Beamforming and beam selection
-* RF I/Q signal analysis
-* Synchronization and calibration workflows
-* Channel-estimation algorithms
-* Digital front-end processing
-* Embedded wireless receivers
-* Spectrum analysis
-* Interference cancellation
-* Communication-system validation
+- execution time;
+- samples processed per second;
+- operations per sample;
+- memory consumption;
+- temporary-buffer use;
+- floating-point versus fixed-point error;
+- direct versus optimized implementation speed;
+- reference versus C/C++ implementation speed.
 
----
+Benchmark conditions will be documented so the results can be reproduced.
+
+## Repository Development Status
+
+- [x] Repository created
+- [x] Root README prepared
+- [x] Project 01 folder created
+- [x] Project 01 README prepared
+- [x] Project 02 folder created
+- [x] Project 02 README prepared
+- [x] Root equation formatting converted to GitHub-compatible plain text
+- [x] Project status added for both active projects
+- [ ] Project 01 source implementation completed
+- [ ] Project 01 verification completed
+- [ ] Project 01 benchmark results added
+- [ ] Project 02 source implementation completed
+- [ ] Project 02 verification completed
+- [ ] Project 02 benchmark results added
+- [ ] Automated test workflow added
+- [ ] Stable release prepared
+
+## Planned Future Expansion
+
+Additional projects may be added after the first two projects are implemented and verified.
+
+Possible future projects include:
+
+```text
+03_polyphase_sample_rate_converter
+04_lms_nlms_adaptive_noise_canceller
+05_timing_and_frequency_synchronization
+06_streaming_iq_dsp_pipeline
+```
+
+These projects are planned ideas and are not currently presented as active repository contents.
 
 ## Skills Demonstrated
 
-This repository demonstrates practical experience in:
+After completion, this repository is expected to demonstrate:
 
-* Digital Signal Processing
-* Wireless PHY algorithm development
-* MATLAB-based algorithm simulation
-* Python-based numerical verification
-* C and C++ DSP implementation
-* OFDM and MIMO signal processing
-* Massive MIMO and digital beamforming
-* Timing and frequency synchronization
-* Channel estimation and equalization
-* Digital filtering
-* FFT and spectral analysis
-* Complex I/Q signal processing
-* Fixed-point implementation
-* Algorithm testing and validation
-* Technical documentation
-* Cross-language result verification
+- Digital Signal Processing;
+- DFT and FFT implementation;
+- spectrum analysis;
+- FIR filter design;
+- IIR filter design;
+- fixed-point arithmetic;
+- coefficient quantization;
+- saturation and overflow handling;
+- IIR stability analysis;
+- MATLAB modeling;
+- Python verification;
+- C implementation;
+- C++ implementation;
+- CMake;
+- unit and regression testing;
+- numerical cross-verification;
+- runtime profiling;
+- memory-aware design;
+- technical documentation.
 
----
+## How to Use This Repository
 
-## How to Run the Projects
+Open the relevant project folder and read its `README.md`.
 
-### MATLAB
+Each project README describes:
 
-Open MATLAB and navigate to the selected project folder.
+- project objective;
+- mathematical model;
+- planned algorithms;
+- implementation structure;
+- verification tests;
+- benchmark plan;
+- development status;
+- limitations;
+- build and execution instructions.
 
-```matlab
-run('main.m')
-```
-
-### Python
-
-Install the required libraries:
-
-```bash
-pip install numpy scipy matplotlib pandas sympy pytest
-```
-
-Run the project:
-
-```bash
-python main.py
-```
-
-Run the tests:
-
-```bash
-pytest
-```
-
-### C
-
-Compile a C project:
-
-```bash
-gcc main.c src/dsp_module.c -Iinclude -o dsp_project -lm
-```
-
-Run the executable:
-
-```bash
-./dsp_project
-```
-
-### C++
-
-Compile a C++ project:
-
-```bash
-g++ main.cpp src/dsp_module.cpp -Iinclude -o dsp_project
-```
-
-Run the executable:
-
-```bash
-./dsp_project
-```
-
-On Windows:
-
-```bash
-dsp_project.exe
-```
-
----
-
-## Development Status
-
-This repository is developed progressively. Each completed project will include:
-
-* Mathematical derivation
-* Algorithm description
-* MATLAB implementation
-* Python implementation
-* C or C++ implementation where applicable
-* Simulation configuration
-* Reproducible test cases
-* Generated figures
-* Numerical verification
-* Technical documentation
-
----
-
-## Author
-
-Md Moklesur Rahman | RF / Wireless / System Specification Engineer | LinkedIn: linkedin.com/in/md-moklesur-rahman-65a63962
----
+The projects are not yet complete executable releases. Final run instructions will be added after the corresponding source implementations are available and verified.
 
 ## License
 
-This repository is intended for technical learning, engineering demonstration, research, and professional portfolio development.
+A repository license will be selected before the source code is released as a stable package.
 
-See the `LICENSE` file for the applicable usage conditions.
+Until a `LICENSE` file is added, this repository should be treated as:
+
+```text
+All rights reserved
+```
+
+## Author
+
+**Md Moklesur Rahman**  
+Wireless/RF/PHY and DSP System Engineer  
+Finland
+
+## Notice
+
+This repository contains ongoing engineering projects.
+
+Features marked as planned have not yet been presented as completed or verified. Source code, tests, benchmarks, figures, and documentation will be updated progressively as development continues.
