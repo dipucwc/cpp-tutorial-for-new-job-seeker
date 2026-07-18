@@ -13,7 +13,7 @@ MATLAB and Python are used as reference models. C and C++ are used for efficient
 
 ## Repository Status
 
-> **Ongoing portfolio — currently under active development**
+> **Ongoing portfolio- currently under active development**
 
 The repository structure and project documentation have been created. Source code, deterministic tests, reference vectors, benchmark results, plots, and technical reports will be added progressively.
 
