@@ -2,7 +2,7 @@
 
 ## Project Status
 
-> **Ongoing project — currently under active development**
+> **Ongoing project- currently under active development**
 
 This project is being developed as a compact DSP algorithm design, implementation, verification, and benchmarking project.
 
